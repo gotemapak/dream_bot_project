@@ -1,80 +1,88 @@
-# Dream Interpreter Telegram Bot
+# Дрими - Бот для толкования снов 🌙✨
 
-A Telegram bot that interprets dreams using AI. Users can submit their dreams via text or voice messages, and receive insightful interpretations powered by OpenAI's GPT and Whisper APIs.
+Telegram-бот, который помогает интерпретировать сны с помощью искусственного интеллекта. Пользователи могут отправлять описания своих снов текстом или голосовыми сообщениями и получать глубокие интерпретации на основе психологии и символизма.
 
-## Features
+## Основные возможности
 
-- 🗣 Voice message support with automatic transcription
-- ✍️ Text message support
-- 🤖 AI-powered dream interpretation
-- 🎯 Clear and insightful responses
-- 💬 Interactive follow-up questions
+- 🗣 Поддержка голосовых сообщений с автоматической транскрипцией
+- ✍️ Текстовые сообщения с описанием снов
+- 🤖 Интерпретация снов с помощью GPT-4
+- 🎯 Понятные и глубокие толкования
+- 💬 Уточняющие вопросы и диалог
+- 📖 История снов с предпросмотром
+- 📊 Статистика использования
+- 🔄 Лимит 20 снов в месяц
 
-## Prerequisites
+## Технические требования
 
-- Python 3.8 or higher
-- A Telegram Bot Token (from [@BotFather](https://t.me/botfather))
-- An OpenAI API key
-- PostgreSQL database (optional)
+- Python 3.8 или выше
+- Telegram Bot Token (получить у [@BotFather](https://t.me/botfather))
+- OpenAI API ключ
+- FastAPI для аналитической панели (опционально)
 
-## Setup
+## Установка
 
-1. Clone the repository:
+1. Клонируйте репозиторий:
 ```bash
-git clone <your-repo-url>
-cd dream-bot-project
+git clone git@github.com:gotemapak/dream_bot_project.git
+cd dream_bot_project
 ```
 
-2. Create and activate a virtual environment:
+2. Создайте и активируйте виртуальное окружение:
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # Для Windows: venv\Scripts\activate
 ```
 
-3. Install dependencies:
+3. Установите зависимости:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Create a `.env` file:
-```bash
-cp .env.example .env
+4. Создайте файл `.env` и добавьте необходимые переменные окружения:
+```env
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+OPENAI_API_KEY=your_openai_api_key
+DASHBOARD_TOKEN=your_dashboard_token
 ```
 
-5. Edit the `.env` file with your credentials:
-- Add your Telegram Bot Token
-- Add your OpenAI API key
-- Configure database URL if needed
+## Запуск бота
 
-## Running the Bot
-
-1. Make sure your virtual environment is activated
-2. Run the bot:
+1. Убедитесь, что виртуальное окружение активировано
+2. Запустите бота:
 ```bash
 python bot.py
 ```
 
-## Usage
+## Использование
 
-1. Start a chat with your bot on Telegram
-2. Send `/start` to get the welcome message
-3. Send your dream either as:
-   - A text message
-   - A voice message
-4. Wait for the interpretation
-5. Ask follow-up questions if needed
+1. Начните чат с ботом в Telegram
+2. Отправьте `/start` для получения приветственного сообщения
+3. Отправьте свой сон одним из способов:
+   - Текстовым сообщением
+   - Голосовым сообщением
+4. Дождитесь интерпретации
+5. Используйте кнопки меню для:
+   - Просмотра истории снов
+   - Получения статистики
+   - Задания уточняющих вопросов
 
-## Error Handling
+## Аналитическая панель
 
-The bot includes error handling for:
-- Voice message processing issues
-- API failures
-- Connection problems
+Для запуска панели аналитики:
+```bash
+python dashboard.py
+```
+Панель будет доступна по адресу: `http://localhost:8000?token=your_dashboard_token`
 
-## Contributing
+## Обработка ошибок
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Бот включает обработку:
+- Проблем с обработкой голосовых сообщений
+- Ошибок API
+- Проблем с подключением
+- Превышения месячного лимита
 
-## License
+## Лицензия
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+Этот проект лицензирован под MIT License - подробности в файле [LICENSE](LICENSE). 

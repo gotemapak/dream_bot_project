@@ -1,0 +1,25 @@
+{
+  "total_dreams": 13,
+  "voice_messages": 12,
+  "text_messages": 1,
+  "errors": 0,
+  "tokens_used": 18035,
+  "common_themes": {},
+  "user_interactions": {
+    "267725146": {
+      "total_dreams": 13,
+      "first_interaction": "2025-03-04",
+      "last_interaction": "2025-03-04",
+      "voice_messages": 8,
+      "text_messages": 1
+    }
+  },
+  "daily_stats": {
+    "2025-03-04": {
+      "total_dreams": 13,
+      "voice_messages": 12,
+      "text_messages": 1,
+      "tokens_used": 18035
+    }
+  }
+}

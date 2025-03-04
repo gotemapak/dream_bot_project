@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Bot Analytics</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Статистика Дрими 🌙✨</h1>
+            <p class="text-gray-600">{{ current_month }}</p>
+        </header>
+
+        <!-- Monthly Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <!-- Total Dreams Card -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Всего снов</h3>
+                <p class="text-3xl font-bold text-blue-600">{{ monthly_stats.total_dreams }}</p>
+            </div>
+
+            <!-- Active Users Card -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Активных пользователей</h3>
+                <p class="text-3xl font-bold text-green-600">{{ monthly_stats.total_users }}</p>
+            </div>
+
+            <!-- Tokens Used Card -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Токенов использовано</h3>
+                <p class="text-3xl font-bold text-purple-600">{{ monthly_stats.tokens_used }}</p>
+                <p class="text-sm text-gray-500">~{{ avg_tokens_per_dream }} на сон</p>
+            </div>
+
+            <!-- Estimated Cost Card -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-2">Расходы за месяц</h3>
+                <p class="text-3xl font-bold text-yellow-600">${{ estimated_cost }}</p>
+                <p class="text-sm text-gray-500">~${{ "%.2f"|format(estimated_cost / monthly_stats.total_dreams if monthly_stats.total_dreams > 0 else 0) }} на сон</p>
+            </div>
+        </div>
+
+        <!-- Message Type Distribution -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <!-- Message Types Chart -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">Распределение типов сообщений</h3>
+                <canvas id="messageTypesChart"></canvas>
+                <div class="mt-4 text-center text-sm text-gray-600">
+                    <p>Голосовые: {{ voice_percentage }}%</p>
+                    <p>Текстовые: {{ text_percentage }}%</p>
+                </div>
+            </div>
+
+            <!-- Daily Stats Chart -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4">Активность за 7 дней</h3>
+                <canvas id="dailyStatsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Error Rate -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">Ошибки</h3>
+            <p class="text-3xl font-bold text-red-600">{{ monthly_stats.errors }}</p>
+            <p class="text-sm text-gray-500">
+                {{ error_rate }}% от всех запросов
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Message Types Chart
+        const messageTypesCtx = document.getElementById('messageTypesChart').getContext('2d');
+        new Chart(messageTypesCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Голосовые', 'Текстовые'],
+                datasets: [{
+                    data: [{{ voice_percentage }}, {{ text_percentage }}],
+                    backgroundColor: ['#4C51BF', '#48BB78']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Daily Stats Chart
+        const dailyStatsCtx = document.getElementById('dailyStatsChart').getContext('2d');
+        new Chart(dailyStatsCtx, {
+            type: 'line',
+            data: {
+                labels: [{% for stat in daily_stats %}'{{ stat.date }}'{% if not loop.last %}, {% endif %}{% endfor %}].reverse(),
+                datasets: [{
+                    label: 'Количество снов',
+                    data: [{% for stat in daily_stats %}{{ stat.total_dreams }}{% if not loop.last %}, {% endif %}{% endfor %}].reverse(),
+                    borderColor: '#4C51BF',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,60 @@
+Technical Requirements for the Dream Interpretation Bot
+
+1. Overview
+The Telegram bot allows users to submit voice messages or text descriptions of their dreams, which are then transcribed, analyzed, and interpreted using an AI-powered knowledge base.
+
+2. Functional Requirements
+1. User Input:
+   - Accepts voice messages.
+   - Accepts text messages describing the dream.
+
+2. Speech-to-Text Conversion:
+   - Uses OpenAI Whisper API to convert voice messages into text.
+
+3. Dream Interpretation:
+   - Uses OpenAI GPT API to analyze and interpret the dream based on predefined symbols and psychological or esoteric references.
+
+4. Database of Dream Symbols (Optional):
+   - Stores dream-related keywords, meanings, and typical scenarios.
+   - Can be manually expanded with additional data.
+
+5. Response Generation:
+   - Provides a concise, readable dream interpretation.
+   - Includes relevant references from the database (if applicable).
+
+6. User Interaction:
+   - Sends an automatic acknowledgment message upon receiving input.
+   - Returns the interpretation within a few seconds.
+   - Allows users to request clarification or a more detailed explanation.
+
+7. Logging and Analytics:
+   - Logs user queries and responses for improvement.
+   - Tracks API usage for cost optimization.
+
+3. Technical Stack
+- Programming Language: Python  
+- Framework: Flask or FastAPI (for handling API requests)  
+- Database (Optional): PostgreSQL / SQLite (for storing dream symbol references)  
+- Messaging Platform: Telegram Bot API  
+- Speech-to-Text API: OpenAI Whisper API  
+- AI Model: OpenAI GPT API  
+- Hosting: AWS EC2, DigitalOcean, or a cloud server with Docker support  
+
+4. API Integrations
+1. OpenAI Whisper API (for voice-to-text conversion)  
+2. OpenAI GPT API (for dream interpretation)  
+3. Telegram Bot API (for handling user interactions)  
+
+5. System Workflow
+1. User sends a voice message or text to the bot.
+2. If it’s a voice message, the bot transcribes it using OpenAI Whisper API.
+3. The bot processes the text, extracts relevant dream elements, and queries OpenAI GPT for interpretation.
+4. The bot returns an interpreted response to the user.
+5. (Optional) The bot stores anonymized data for analytics and improvement.
+
+6. Deployment and Costs
+- Development Time Estimate: ~50 hours  
+- Monthly Running Costs:
+  - OpenAI Whisper API: ~$50/month  
+  - OpenAI GPT API: ~$50/month  
+  - Hosting: ~$20/month  
